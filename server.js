@@ -45,9 +45,14 @@ app.get("/scrape", function(req, res) {
   axios.get("https://www.pbs.org/newshour/latest").then(function(response) {
     //Load the body into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
+    var numScraped = 0;
     //console.log($(this));
     //Now we grab every div.card-timeline__intro inside articles tag.
     $("article div.card-timeline__intro").each(function(i, element) {
+      //Check if the appropriate number of articles have been scraped
+      if (numScraped === 10) {
+        return false;
+      }
       //empty result object for adding new records to db
       var result = {};
       //add title, summary and link of article to the results object.
@@ -67,6 +72,8 @@ app.get("/scrape", function(req, res) {
         .then(function(dbArticle) {
           //view the added result in the console
           console.log(dbArticle);
+          //update the num of articles scraped
+          numScraped++;
         })
         .catch(function(err) {
           //log any error found
