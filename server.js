@@ -35,6 +35,10 @@ var MONGODB_URI =
 
 mongoose.connect(MONGODB_URI);
 
+app.get("/", function(req, res) {
+  res.render("index");
+});
+
 //Get a route for scraping pbsnewshour
 app.get("/scrape", function(req, res) {
   //grab the body of the HTML with axios
@@ -74,6 +78,7 @@ app.get("/scrape", function(req, res) {
         //send articles back to the client if found
         console.log(dbArticle);
         res.render("index", { Articles: dbArticle });
+        //res.json(dbArticle);
       })
       .catch(function(err) {
         //log any error found
@@ -83,7 +88,7 @@ app.get("/scrape", function(req, res) {
 });
 
 //Route for getting all articles from the database
-app.get("/articles", function(res, req) {
+app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       //send articles back to the client if found

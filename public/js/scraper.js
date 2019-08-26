@@ -3,23 +3,15 @@ $(document).ready(function() {
 
   //Scrape handler
   function handleScraping(event) {
-    //
+    //prevents submit button from submitting a form.
     event.preventDefault();
     //Scrape articles
-    $("#scrape-articles").on("click", handleScraping);
     $.ajax({
       type: "GET",
-      data: author,
       url: "/scrape"
     }).then(function(response) {
+      //WHY DOES RESPONSE ALS CONTAIN HTML TAGS FROM index.handlebars???=========================================
       console.log(response);
-      $(".nav-mobile").append(
-        " <a class=" +
-          "waves-effect waves-light btn modal-trigger" +
-          " href=" +
-          "#modal1>You have 10 articles!</a" +
-          ">"
-      );
     });
   }
 
@@ -39,4 +31,7 @@ $(document).ready(function() {
       );
     }
   });
+
+  //click event for scraping
+  $("#scrape-articles").on("click", handleScraping);
 });

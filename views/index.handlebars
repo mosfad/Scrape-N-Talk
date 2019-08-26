@@ -11,11 +11,24 @@
         <a href="#" class="brand-logo">Scrape-N-Talk</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="index.handlebars">Home</a></li>
+            <li><a class="waves-effect waves-light modal-trigger btn" href="#modal1" id="scrape-articles">SCRAPE NEW
+                    ARTICLES</a></li>
             <li><a href="savedArticles.handlebars">Saved Articles</a></li>
-            <li><a class="waves-effect waves-light btn" id="scrape-articles">SCRAPE NEW ARTICLES</a></li>
         </ul>
     </div>
+
+
 </nav>
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Added 10 new articles!</h4>
+    </div>
+    <div class="modal-footer">
+        <a href="/scrape" class="modal-close waves-effect waves-green btn red">OK</a>
+    </div>
+</div>
+
 
 <div class="row padding-img">
     <div class="col s12 m12 padding-img">
