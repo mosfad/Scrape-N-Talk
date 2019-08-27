@@ -1,8 +1,8 @@
 $(document).ready(function() {
-  $(".modal").modal();
-
+  var articleId;
   //Scrape handler
   function handleScraping(event) {
+    $(".modal").modal();
     //prevents submit button from submitting a form.
     event.preventDefault();
     //Scrape articles
@@ -10,11 +10,30 @@ $(document).ready(function() {
       type: "GET",
       url: "/scrape"
     }).then(function(response) {
-      //WHY DOES RESPONSE ALS CONTAIN HTML TAGS FROM index.handlebars???=========================================
       console.log(response);
+      //var noArticlesCard = $("#no-articles");
+      //noArticlesCard.hide(); //WHY ISN'T .hide() WORKING????????????????????????????????????
+      console.log("I am here..................");
+      //$("#no-articles").remove();
     });
   }
+  handleSavingArticle = event => {
+    //prevents submit button from submitting a form.
+    event.preventDefault();
+    console.log(this);
+    var articleId = $(this).data("id");
 
+    $.ajax({
+      type: "GET",
+      url: "/articles/" + articleId
+    }).then(function(response) {
+      console.log(response);
+      //var noArticlesCard = $("#no-articles");
+      //noArticlesCard.hide(); //WHY ISN'T .hide() WORKING????????????????????????????????????
+      console.log("I am here..................");
+      //$("#no-articles").remove();
+    });
+  };
   // Grab the articles as a json
   $.getJSON("/articles", function(data) {
     // For each one
@@ -34,4 +53,7 @@ $(document).ready(function() {
 
   //click event for scraping
   $("#scrape-articles").on("click", handleScraping);
+
+  //click event for saving an article
+  $("#new-articles").on("click", "#btn-save-article", handleSavingArticle);
 });
